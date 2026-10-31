@@ -1,0 +1,459 @@
+% Magic squares of squares and elliptic divisibility sequences: the rank-one case.
+% Draft, 2026-11-05. Compile with pdflatex (no special packages). Before submission: the author should
+% review the whole argument, and double-check bibliographic details such as page ranges.
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\sqf}{sqf}
+\DeclareMathOperator{\rk}{rank}
+\hyphenation{Tza-na-kis Ver-zo-bio}
+
+\title[Magic squares of squares: the rank-one case]{Magic squares of squares and elliptic divisibility
+sequences: the rank-one case}
+\author{Ryan Heard}
+\date{\today}
+\subjclass[2020]{11D09, 11G05, 11B39}
+\keywords{magic square of squares, congruent number curve, elliptic divisibility sequence, primitive divisor}
+
+\begin{document}
+
+\begin{abstract}
+Robertson observed that a $3\times3$ magic square of squares gives three points on a congruent number
+curve $E_n\colon y^2=x^3-n^2x$ whose $x$-coordinates are in arithmetic progression, and three more such
+points on a second congruent number curve. Bremner, Silverman and Tzanakis proved that for squarefree $n$
+a subgroup of $E_n(\Q)$ of rank one contains no non-trivial \emph{integral} arithmetic progression. Their
+theorem never applies to magic squares of squares: in a primitive one the common differences are
+divisible by~$8$, and as a result the points never have integral coordinates. We prove a
+rational analogue on the curves $y^2=x^3+Dx$: the $x$-coordinates of three multiples of a non-torsion
+point with square $x$-coordinate, with pairwise distinct absolute indices, are never in arithmetic
+progression. The proof uses the primitive divisor theorem of Voutier and Yabuta, with Verzobio's
+correction. Consequently, in any magic square of squares each of the two families of three points
+generates a subgroup of rank at least two. Equivalently, the common difference of either diagonal of the
+square has a squarefree part $n$ with $\rk E_n(\Q)\ge2$. By a theorem of Smith, such $n$ form a set of
+density zero.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+A \emph{magic square of squares} is a $3\times3$ array of nine distinct positive integer squares whose
+rows, columns and two diagonals all have the same sum. Whether one exists is a well-known open problem,
+popularized by LaBar~\cite{LaBar} and by Gardner (see Boyer~\cite{Boyer} for the history, the prizes, and
+near-misses such as Bremner's magic square with seven square entries). Robertson~\cite{Robertson} related
+the problem to congruent number curves, and Bremner~\cite{Bremner99,Bremner01} studied it through its
+sub-configurations and their geometry. Bruin, Thomas and V\'arilly-Alvarado~\cite{BTVA} proved that the
+associated surface is algebraically quasi-hyperbolic. Auel and Singer~\cite{AS} have recently described
+its algebraic geometry in detail, and Kominers~\cite{Kominers} has studied magic squares of squares with
+center~$0$ over number fields. Extensive computer searches have found no example.
+
+Every $3\times3$ magic square of integers can be written in the Lucas form
+\begin{equation}\label{eq:lucas}
+\begin{pmatrix}
+E+a & E-a-b & E+b\\
+E-a+b & E & E+a-b\\
+E-b & E+a+b & E-a
+\end{pmatrix},
+\qquad E,a,b\in\Z,
+\end{equation}
+whose entries are the nine numbers $L_{\alpha,\beta}=E+\alpha a+\beta b$ with
+$\alpha,\beta\in\{-1,0,1\}$. The entries are distinct exactly when $ab\neq0$, $a\neq\pm b$,
+$a\neq\pm2b$ and $b\neq\pm2a$. The main diagonal is $(E-a,E,E+a)$ and the anti-diagonal is
+$(E-b,E,E+b)$.
+
+For fixed $\alpha$, the three entries $L_{\alpha,-1},L_{\alpha,0},L_{\alpha,1}$ form an arithmetic
+progression with common difference $b$. In~\eqref{eq:lucas} they are the anti-diagonal ($\alpha=0$) and
+the two broken diagonals parallel to it. We call these the three \emph{$b$-progressions}; they partition
+the nine entries. Likewise, for fixed $\beta$, the entries $L_{-1,\beta},L_{0,\beta},L_{1,\beta}$ form
+the three \emph{$a$-progressions}, with common difference $a$: the main diagonal and its two broken
+parallels.
+
+For a nonzero integer $m$, write $\sqf(m)$ for the squarefree part of $|m|$: the squarefree integer
+$n\ge1$ with $|m|=nk^2$ for some integer $k$. For a squarefree $n\ge1$, let $E_n$ be the congruent number
+curve
+\[
+E_n\colon\ y^2=x^3-n^2x.
+\]
+If all nine entries of~\eqref{eq:lucas} are squares, write $|b|=nk^2$ with $n=\sqf(b)$. For each $\alpha$,
+the three entries of the $\alpha$-th $b$-progression divided by $k^2$ are the rational squares $x_\alpha-n$,
+$x_\alpha$ and $x_\alpha+n$, where $x_\alpha=(E+\alpha a)/k^2$. So $x_\alpha(x_\alpha-n)(x_\alpha+n)$ is a
+rational square, and there is a point
+\begin{equation}\label{eq:points}
+P_\alpha=(x_\alpha,y_\alpha)\in E_n(\Q),\qquad x_{-1}+x_1=2x_0 .
+\end{equation}
+This is the observation of Robertson~\cite{Robertson}. The $a$-progressions give three points on
+$E_{\sqf(a)}$ in the same way.
+
+Motivated by this connection, Bremner, Silverman and Tzanakis proved in~\cite{BST} that if $n$ is
+squarefree then a subgroup of $E_n(\Q)$ of rank one contains no non-trivial \emph{integral} arithmetic progression.
+Their proof uses delicate height estimates. Their theorem does not reach magic squares of squares. In a
+primitive magic square of squares all nine entries are odd and $8$ divides $a$ and $b$
+(Remark~\ref{rem:BST}), so $b$ is never squarefree, and the points~\eqref{eq:points} never have integral
+coordinates. Our main result is a rational version, for the points that magic squares actually produce.
+
+\begin{theorem}\label{thm:main}
+Let $E,a,b$ be integers with $ab\neq0$ such that all nine entries of~\eqref{eq:lucas} are squares of
+integers. Then the points $P_{-1},P_0,P_1$ of~\eqref{eq:points} generate a subgroup of $E_{\sqf(b)}(\Q)$
+of rank at least two. Likewise, the three points coming from the $a$-progressions generate a subgroup of
+$E_{\sqf(a)}(\Q)$ of rank at least two.
+\end{theorem}
+
+\begin{corollary}\label{cor:rank}
+Let $d$ be the common difference of either diagonal of a magic square of squares. Then $n=\sqf(d)$ is a
+congruent number with $\rk E_n(\Q)\ge2$. The set of such $n$ has natural density zero among squarefree
+integers. Its elements up to $150$ are $34,41,65,137,138,145$.
+\end{corollary}
+
+\begin{example}\label{ex:6}
+The curve $E_6$ has rank one; its point $2G$, for the generator $G=(-3,9)$, has $x(2G)=25/4$, which
+corresponds to the progression $1,25,49$ of difference $24=6\cdot2^2$. By Corollary~\ref{cor:rank}, no
+magic square of squares has a diagonal whose common difference is of the form $6k^2$. In particular,
+$(1,25,49)$ is not a diagonal of any magic square of squares.
+\end{example}
+
+The key input is Lemma~\ref{lem:noAP}. Let $Q$ be a non-torsion point on an elliptic curve with a
+Weierstrass equation with integer coefficients, and suppose that every term of the elliptic divisibility
+sequence of $Q$ from the third on has a primitive divisor. Then the $x$-coordinates of three multiples
+of $Q$ with pairwise distinct absolute indices are never in arithmetic progression. Its proof is short.
+On the curves $y^2=x^3+Dx$ with $D$ fourth-power-free in minimal form, the primitive divisor theorem of
+Voutier and Yabuta~\cite{VY}, which appeared after~\cite{BST}, supplies the hypothesis whenever $x(Q)$
+is a square (Theorem~\ref{thm:VY}). More
+general results on arithmetic progressions among $x$-coordinates of rational points, such as Choi's
+additive rigidity theorem~\cite{Choi}, bound the number of points in such progressions in terms of the
+Mordell--Weil rank, but do not give this exclusion. As far as we know, Lemma~\ref{lem:noAP} and
+Theorem~\ref{thm:main} are new. Both, and the rank statement of Corollary~\ref{cor:rank}, have been
+checked in the Lean proof assistant, with Theorem~\ref{thm:VY} and the torsion of $E_n(\Q)$ as explicit
+hypotheses (Remark~\ref{rem:lean}).
+
+\section{Congruent number curves and their divisibility sequences}
+
+\begin{lemma}\label{lem:facts}
+Let $n\ge1$ be squarefree.
+\begin{enumerate}
+\item[(a)] $E_n(\Q)_{\mathrm{tors}}=E_n[2]=\{O,(0,0),(n,0),(-n,0)\}$.
+\item[(b)] A point $P=(x,y)\in E_n(\Q)$ lies in $2E_n(\Q)$ if and only if $x$, $x-n$ and $x+n$ are all
+squares in $\Q$.
+\item[(c)] $2E_n(\Q)$ is torsion-free.
+\item[(d)] The equation $y^2=x^3-n^2x$ is a global minimal model of $E_n$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Part (a) is classical; see~\cite[Ch.~I, \S9]{Ko}. Part (b) is the standard criterion for halving a point
+on $y^2=(x-e_1)(x-e_2)(x-e_3)$ with $e_i\in\Q$, applied with $\{e_i\}=\{0,n,-n\}$; see~\cite[Ch.~IV]{Kn}.
+For (c), if $T=2R\in2E_n(\Q)$ is torsion then so is $R$, so $R\in E_n[2]$ by (a), and $T=O$.
+
+For (d), the discriminant is $\Delta=64n^6$. At an odd prime $p$, $v_p(\Delta)=6v_p(n)\le6<12$, so the
+model is minimal at $p$. If $n$ is odd, then $v_2(\Delta)=6$ and the same holds at $2$. If $n=2m$ with
+$m$ odd, then replacing $m$ by $mu^2$ with $u\in\Z_2^\times$ gives an isomorphic model over $\Z_2$, via
+$(x,y)\mapsto(u^2x,u^3y)$. So minimality at $2$ depends only on $m$ modulo $(\Z_2^\times)^2$, that is, on
+$m\bmod8$. Tate's algorithm (we used \texttt{ellminimalmodel} in PARI/GP~\cite{PARI}) shows that the model
+is minimal at $2$ for $n=2,6,10,14$, which covers $m\equiv1,3,5,7\pmod8$.
+\end{proof}
+
+Now let $C$ be an elliptic curve over $\Q$ given by a Weierstrass equation
+\begin{equation}\label{eq:weier}
+y^2+a_1xy+a_3y=x^3+a_2x^2+a_4x+a_6,\qquad a_1,a_2,a_3,a_4,a_6\in\Z,
+\end{equation}
+and for a prime $\ell$ let $v_\ell$ be the $\ell$-adic valuation on $\Q$. If $(x,y)\in C(\Q)$ and
+$t=-v_\ell(x)>0$, then $t$ is even. Indeed, the right-hand side of~\eqref{eq:weier} has valuation $-3t$,
+because $x^3$ does and the other terms have valuation at least $-2t$. If $v_\ell(y)\ge-t$, every term on
+the left has valuation at least $-2t$, which is impossible. So $v_\ell(y)<-t$. Then $y^2$ has strictly
+smaller valuation than $a_1xy$ and $a_3y$, and comparing the two sides gives $2v_\ell(y)=-3t$.
+Consequently, for $P\in C(\Q)\setminus\{O\}$ we can write $x(P)=A(P)/B(P)^2$ with $A(P),B(P)\in\Z$
+coprime and $B(P)\ge1$, and for every prime $\ell$
+\begin{equation}\label{eq:val}
+\ell\mid B(P)\iff v_\ell\bigl(x(P)\bigr)<0\iff v_\ell\bigl(x(P)\bigr)=-2v_\ell\bigl(B(P)\bigr)\le-2.
+\end{equation}
+Since $-P$ has the same $x$-coordinate as $P$, $B(-P)=B(P)$. For a non-torsion point $Q$, the integers
+$B_m=B(mQ)$, $m\ge1$, form the \emph{elliptic divisibility sequence} of $Q$~\cite{Ward}. A prime $\ell$ is
+a \emph{primitive divisor} of $B_M$ if $\ell\mid B_M$ and $\ell\nmid B_m$ for $1\le m<M$.
+Silverman~\cite{Si88} showed that all but finitely many terms have a primitive divisor. For the curves
+$W_D\colon y^2=x^3+Dx$, where $D\ne0$ is an integer, there is a uniform statement. Note that
+$E_n=W_{-n^2}$.
+
+\begin{theorem}[Voutier--Yabuta~\cite{VY}, Verzobio~\cite{Ve}]\label{thm:VY}
+Let $D$ be a fourth-power-free integer for which $y^2=x^3+Dx$ is a minimal model, and let $Q$ be a
+non-torsion rational point on it with $x(Q)$ a square in $\Q$. Then $B_M(Q)$ has a primitive divisor for
+every $M\ge3$.
+\end{theorem}
+
+Voutier and Yabuta~\cite{VY} prove that $B_M$ has a primitive divisor for every even $M>2$, and for every
+odd $M>1$ when $x(Q)<0$ or $x(Q)$ is a square. Their proof needs the case $M=5m$ (their Lemma~5.1).
+Verzobio~\cite{Ve} found a gap in the proof of that lemma and proved, for minimal models $y^2=x^3+Dx$, that
+$B_{5m}$ has a primitive divisor for every $m$.
+
+\section{Multiples of one point are never in arithmetic progression}
+
+\begin{lemma}\label{lem:noAP}
+Let $C$ be an elliptic curve over $\Q$ given by a Weierstrass equation~\eqref{eq:weier} with integer
+coefficients, and let $Q\in C(\Q)$ be a non-torsion point such that $B_M(Q)$ has a primitive divisor for
+every $M\ge3$. Let $m_{-1},m_0,m_1$ be nonzero integers whose absolute values are pairwise distinct. Then
+\[
+x(m_{-1}Q)+x(m_1Q)\ne2\,x(m_0Q).
+\]
+\end{lemma}
+
+By Theorem~\ref{thm:VY}, the hypothesis on $Q$ holds when $C$ is $y^2=x^3+Dx$ with $D$ fourth-power-free,
+the model is minimal, and $x(Q)$ is a square in $\Q$.
+
+\begin{proof}
+The three integers $|m_\alpha|$ are distinct and positive, so their maximum $M$ satisfies $M\ge3$. Let
+$\ell$ be a primitive divisor of $B_M$, and let $\alpha^*$ be the index with $|m_{\alpha^*}|=M$. Since
+$x(mQ)=x(|m|Q)$, \eqref{eq:val} gives
+\[
+v_\ell\bigl(x(m_{\alpha^*}Q)\bigr)=-2v_\ell(B_M)\le-2,
+\qquad
+v_\ell\bigl(x(m_\beta Q)\bigr)\ge0\quad(\beta\ne\alpha^*),
+\]
+because $\ell\nmid B_{|m_\beta|}$ when $|m_\beta|<M$.
+
+If $\alpha^*=\pm1$, the left-hand side $x(m_{-1}Q)+x(m_1Q)$ has $\ell$-adic valuation at most $-2$. The
+right-hand side $2x(m_0Q)$ has valuation at least $0$.
+
+If $\alpha^*=0$, the right-hand side has valuation $v_\ell(2)-2v_\ell(B_M)\le1-2<0$. The left-hand side
+has valuation at least $0$.
+
+In either case the two sides are different.
+\end{proof}
+
+\section{Proof of Theorem~\ref{thm:main} and Corollary~\ref{cor:rank}}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Let $n=\sqf(b)$ and let $P_{-1},P_0,P_1\in E_n(\Q)$ be the points of~\eqref{eq:points}.
+\begin{itemize}
+\item By Lemma~\ref{lem:facts}(b), each $P_\alpha$ lies in $2E_n(\Q)$, since $x_\alpha$ and
+$x_\alpha\pm n$ are squares.
+\item The $x_\alpha=(E+\alpha a)/k^2$ are pairwise distinct because $a\neq0$, and none of the $P_\alpha$
+is $O$.
+\item Let $\Gamma=\langle P_{-1},P_0,P_1\rangle\subseteq2E_n(\Q)$. By Lemma~\ref{lem:facts}(c), $\Gamma$ is
+a nonzero, torsion-free, finitely generated abelian group, so $\rk\Gamma\ge1$.
+\end{itemize}
+Suppose $\rk\Gamma=1$. Then $\Gamma$ is infinite cyclic, $\Gamma=\langle Q\rangle$, with
+$Q\in\Gamma\subseteq2E_n(\Q)$ non-torsion, so $x(Q)$ is a square by Lemma~\ref{lem:facts}(b). Write
+$P_\alpha=m_\alpha Q$ with $m_\alpha\in\Z\setminus\{0\}$. For a non-torsion $Q$, $x(mQ)=x(m'Q)$ implies
+$mQ=\pm m'Q$, and hence $m=\pm m'$. So the distinctness of the $x_\alpha$ forces the $|m_\alpha|$ to be
+pairwise distinct. Since $D=-n^2$ is fourth-power-free and the model is minimal
+(Lemma~\ref{lem:facts}(d)), Theorem~\ref{thm:VY} shows that $B_M(Q)$ has a primitive divisor for every
+$M\ge3$. So Lemma~\ref{lem:noAP} applies, and it contradicts $x_{-1}+x_1=2x_0$. Hence $\rk\Gamma\ge2$.
+
+The statement for the $a$-progressions follows by exchanging the roles of $a$ and $b$, which needs
+$b\neq0$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:rank}]
+The common differences of the two diagonals of~\eqref{eq:lucas} are $a$ and $b$, and $ab\ne0$ for a
+magic square of squares. By Theorem~\ref{thm:main}, $\rk E_n(\Q)\ge2$ for $n=\sqf(a)$ and $n=\sqf(b)$; in
+particular $n$ is a congruent number.
+
+For the density, $E_n$ is the quadratic twist by $n$ of $E_1\colon y^2=x^3-x$. The curve $E_1$ has full
+rational $2$-torsion. It has no rational cyclic subgroup of order four, because the $x$-coordinates of
+its points of exact order four are the roots of $x^2+1$ and $x^2\pm2x-1$, none of which is rational.
+Smith~\cite{Smith} proved that for such a curve the number of twists $E_1^d$ with $|d|<N$ and rank at
+least two is $o(N)$.
+
+For the list, PARI/GP's \texttt{ellrank}~\cite{PARI} proves $\rk E_n(\Q)\ge2$ for $n=34,41,65,137,138,145$,
+and $\rk E_n(\Q)\le1$ for every other squarefree $n\le150$ except $n=113$, where it gives
+$0\le\rk\le2$. For $n=113$, Tunnell's criterion~\cite{Tunnell} settles the question. If an odd
+squarefree $n$ is congruent then
+$\#\{x^2+2y^2+8z^2=n\}=2\,\#\{x^2+2y^2+32z^2=n\}$. For $n=113$ these counts are $32$ and $24$, so $113$
+is not congruent, and $\rk E_{113}(\Q)=0$.
+\end{proof}
+
+\section{Remarks}
+
+\begin{remark}[Relation to~\cite{BST}]\label{rem:BST}
+Every magic square of squares is a square multiple of a primitive one, whose entries have no common factor
+greater than $1$, and the property in Theorem~\ref{thm:main} is unchanged by scaling. In a primitive one,
+write the center as $E=e^2$. Each line through the center is $(e^2-t,e^2,e^2+t)$ with
+$t\in\{a,b,a+b,a-b\}$, and $e^2-t=x^2$, $e^2+t=y^2$ give $x^2+y^2=2e^2$.
+\begin{itemize}
+\item If $e$ were even, then $x^2+y^2\equiv0\pmod4$ would force $x$ and $y$ to be even for every such
+line, making all nine entries even. So $e$ is odd.
+\item Then $x^2+y^2=2e^2\equiv2\pmod4$ forces $x$ and $y$ odd, so all nine entries are odd and
+$t=y^2-e^2\equiv0\pmod8$. In particular $8\mid a$ and $8\mid b$.
+\end{itemize}
+Writing $|b|=nk^2$ with $n$ squarefree, $v_2(n)\le1$ forces $k$ to be even. So
+$x_\alpha=(E+\alpha a)/k^2$ has an odd numerator and an even denominator, and is never an integer.
+Theorem~1.1 of~\cite{BST}, which concerns integral progressions on $E_n$ with $n$ squarefree, therefore
+never applies to the points~\eqref{eq:points}; nor does their Theorem~1.4 on large squarefree twists.
+Conversely, Lemma~\ref{lem:noAP} and Theorem~\ref{thm:VY} do not recover~\cite[Thm.~1.1]{BST}. That
+theorem allows torsion points, and points outside $2E_n(\Q)$, to which Theorem~\ref{thm:VY} need not
+apply.
+\end{remark}
+
+\begin{remark}[What the argument uses]\label{rem:uses}
+The proof uses that all three $b$-progressions (or all three $a$-progressions) consist of squares. Since
+these partition the nine entries, it uses all nine square conditions. It says nothing about magic squares
+with seven or eight square entries. For instance, Bremner's magic square with seven square
+entries~\cite{Bremner99} has $E=425^2$, $a=-41496$ and $b=138600$. Two of its $b$-progressions and one of
+its $a$-progressions consist of squares, and $\sqf(b)=154$ while $\sqf(a)=10374$. Here $\rk E_{154}(\Q)=2$
+and $\rk E_{10374}(\Q)=1$, which is consistent with the theorem, since that square is not a magic square
+of squares.
+\end{remark}
+
+\begin{remark}[Near misses]\label{rem:near}
+Two full $b$-progressions already give two of the points~\eqref{eq:points}, without the third
+$b$-progression and without a square center. These two points need not be independent, even in a magic
+square with nine distinct entries. For $E=1201^2$, $a=1319901$ and $b=117600=6\cdot140^2$, the
+square~\eqref{eq:lucas} is
+\[
+\begin{pmatrix}
+2762302 & 70^2 & 1249^2\\
+490^2 & 1201^2 & 2644702\\
+1151^2 & 2879902 & 350^2
+\end{pmatrix},
+\]
+with magic sum $4327203$ and six square entries. Its $b$-progressions with $\alpha=-1$ and $\alpha=0$ are
+full, and the first of them is $70^2\cdot(1,25,49)$. With $G=(-3,9)$ and $H=2G$ as in
+Example~\ref{ex:6}, we have $x_{-1}=25/4=x(H)$ and $x_0=(1201/140)^2=x(2H)$, so $P_{-1}=\pm H$ and
+$P_0=\pm2H$. Since $\rk E_6(\Q)=1$, the hypothesis of Theorem~\ref{thm:main} cannot be weakened to two
+full $b$-progressions.
+
+In the near misses we have checked, however, the two points are independent. These are Bremner's square
+of Remark~\ref{rem:uses}, whose $b$-progressions with $\alpha=0,1$ are full, and $2{,}320$ configurations,
+found by a computer search over centers $E<10^{12}$, in which the $b$-progressions with $\alpha=\pm1$ are
+full and $E$ is not a square. The proof is exact. Write the two points as $P=2R$ and $P'=2R'$, as
+Lemma~\ref{lem:facts}(b) allows. The map $(x,y)\mapsto(x,x-n)$, with $(0,0)\mapsto(-1,-n)$ and
+$(n,0)\mapsto(n,2)$, induces an injective homomorphism
+$\phi\colon E_n(\Q)/2E_n(\Q)\to(\Q^\times/\Q^{\times2})^2$~\cite[Prop.~X.1.4]{AEC}. In all but one case,
+$\phi$ maps $R$, $R'$, $(0,0)$ and $(n,0)$ to elements that are linearly independent over $\mathbb{F}_2$.
+Then $R$ and $R'$ are independent modulo $E_n(\Q)_{\mathrm{tors}}$, which is $E_n[2]$ by
+Lemma~\ref{lem:facts}(a): a relation $cR+c'R'\in E_n[2]$ with $c,c'$ coprime would give a nontrivial
+relation modulo $2E_n(\Q)$. Hence $P$ and $P'$ are independent. The exception is a configuration with
+$n=210$, in which $\phi$ maps $R$, $R'$ and $(n,0)$ to elements with product~$1$. Then
+$R+R'+(n,0)=2S$ for some $S\in E_n(\Q)$, the same test succeeds for $S$ and $R'$, and $R\equiv2S-R'$
+modulo torsion. So in all these near misses $\rk E_{\sqf(b)}(\Q)\ge2$,
+and the rank bound of Corollary~\ref{cor:rank} does not by itself separate magic squares of squares from
+them. The accompanying script \texttt{near\_misses.gp} carries out these computations.
+\end{remark}
+
+\begin{remark}[Rank at least two]
+The valuation argument of Lemma~\ref{lem:noAP} shows, in any rank, that a prime dividing the denominator
+of one of $x_{-1}$, $x_0$, $x_1$ must divide the denominator of another. When $\Gamma$ has rank at least two,
+this becomes a condition on the common prime factors of the denominators of points in a lattice of rank
+at least two, that is, of the terms of an elliptic net~\cite{Stange}. Bounds of the required kind for the
+greatest common divisor of $B(P)$ and $B(Q)$, for independent $P$ and $Q$, follow from Vojta's
+conjecture~\cite{Si05}. They are not known unconditionally, let alone uniformly in $n$. So we do not
+know how to extend Theorem~\ref{thm:main} to rank two.
+\end{remark}
+
+\begin{remark}[Computations]
+As a check on Lemma~\ref{lem:noAP}, consider the $116$ squarefree $n\le400$ for which PARI/GP, run with
+the random seed of the accompanying script \texttt{checks.gp}, proves $\rk E_n(\Q)=1$ and finds a
+generator $G$, and set $H=2G$. For ten more $n$, such as $n=157$, it proves rank one but finds no
+generator. In each case, no three of $x(H),\dots,x(16H)$ are in arithmetic progression, and every $B_m(H)$
+with $2\le m\le16$ has a primitive divisor. The same script reproduces the other computations in this
+note, except those of Remark~\ref{rem:near}.
+\end{remark}
+
+\begin{remark}[Formal verification]\label{rem:lean}
+Lemma~\ref{lem:noAP}, Theorem~\ref{thm:main} and the rank statement of Corollary~\ref{cor:rank} are
+formalized in Lean~4~\cite{Lean} with the Mathlib library~\cite{Mathlib}, in the file
+\texttt{RankOne.lean} that accompanies this note. Two inputs enter as explicit hypotheses: the conclusion of
+Theorem~\ref{thm:VY} for $E_n$, and Lemma~\ref{lem:facts}(a). Everything else is proved, including the
+halving formula behind Lemma~\ref{lem:facts}(b), the group-law computations and the passage from a magic
+square of squares to the points~\eqref{eq:points}.
+\begin{itemize}
+\item Lemma~\ref{lem:noAP} is proved as stated, for every Weierstrass equation~\eqref{eq:weier} with
+integer coefficients, together with the facts~\eqref{eq:val} about valuations that its proof uses.
+\item The rank of $\Gamma$ is its rank as a free $\Z$-module.
+\item $\rk E_n(\Q)\ge2$ is stated as the existence of two $\Z$-linearly independent points of $E_n(\Q)$.
+\end{itemize}
+Lean reports that the proofs use only its three standard axioms. The density statement and the list in
+Corollary~\ref{cor:rank} are not formalized.
+\end{remark}
+
+\subsection*{Acknowledgments}
+The argument, the literature checks, the computations and the Lean formalization were developed with the
+assistance of Claude (Anthropic). Computations used PARI/GP.
+
+\begin{thebibliography}{99}
+
+\bibitem{AS} A.~Auel and B.~Singer, \emph{The algebraic geometry of 3-by-3 magic squares of squares},
+arXiv:2609.09351, 2026.
+
+\bibitem{Boyer} C.~Boyer, \emph{Some notes on the magic squares of squares problem}, Math. Intelligencer
+\textbf{27} (2005), no.~2, 52--64.
+
+\bibitem{Bremner99} A.~Bremner, \emph{On squares of squares}, Acta Arith. \textbf{88} (1999), 289--297.
+
+\bibitem{Bremner01} A.~Bremner, \emph{On squares of squares II}, Acta Arith. \textbf{99} (2001), 289--308.
+
+\bibitem{BST} A.~Bremner, J.~H.~Silverman and N.~Tzanakis, \emph{Integral points in arithmetic
+progression on $y^2=x(x^2-n^2)$}, J. Number Theory \textbf{80} (2000), 187--208.
+
+\bibitem{BTVA} N.~Bruin, J.~Thomas and A.~V\'arilly-Alvarado, \emph{Explicit computation of symmetric
+differentials and its application to quasihyperbolicity}, Algebra Number Theory \textbf{16} (2022),
+no.~6, 1377--1405.
+
+\bibitem{Choi} S.~Choi, \emph{Additive rigidity for $x$-coordinates of rational points on elliptic
+curves}, arXiv:2510.03828, 2025 (revised 2026).
+
+\bibitem{Kn} A.~W.~Knapp, \emph{Elliptic Curves}, Mathematical Notes \textbf{40}, Princeton University
+Press, 1992.
+
+\bibitem{Ko} N.~Koblitz, \emph{Introduction to Elliptic Curves and Modular Forms}, 2nd ed., Graduate Texts
+in Mathematics \textbf{97}, Springer, 1993.
+
+\bibitem{Kominers} S.~D.~Kominers, \emph{Center-zero magic squares of squares over number fields},
+preprint, 2026,
+\url{https://www.scottkom.com/assets/articles/Kominers_Center-Zero_Magic_Squares.pdf}.
+
+\bibitem{LaBar} M.~LaBar, \emph{Problem 270}, College Math. J. \textbf{15} (1984), 69.
+
+\bibitem{Mathlib} The mathlib Community, \emph{The Lean mathematical library}, in: Proceedings of the 9th
+ACM SIGPLAN International Conference on Certified Programs and Proofs (CPP 2020), ACM, 2020, 367--381.
+
+\bibitem{Lean} L.~de~Moura and S.~Ullrich, \emph{The Lean~4 theorem prover and programming language}, in:
+Automated Deduction -- CADE~28, Lecture Notes in Comput. Sci. \textbf{12699}, Springer, 2021, 625--635.
+
+\bibitem{PARI} The PARI~Group, \emph{PARI/GP version 2.17.3}, Univ. Bordeaux,
+\url{https://pari.math.u-bordeaux.fr/}.
+
+\bibitem{Robertson} J.~P.~Robertson, \emph{Magic squares of squares}, Math. Mag. \textbf{69} (1996),
+no.~4, 289--293.
+
+\bibitem{Si88} J.~H.~Silverman, \emph{Wieferich's criterion and the $abc$-conjecture}, J. Number Theory
+\textbf{30} (1988), 226--237.
+
+\bibitem{Si05} J.~H.~Silverman, \emph{Generalized greatest common divisors, divisibility sequences, and
+Vojta's conjecture for blowups}, Monatsh. Math. \textbf{145} (2005), 333--350; arXiv:math/0407415.
+
+\bibitem{AEC} J.~H.~Silverman, \emph{The Arithmetic of Elliptic Curves}, 2nd ed., Graduate Texts in
+Mathematics \textbf{106}, Springer, 2009.
+
+\bibitem{Smith} A.~Smith, \emph{$2^\infty$-Selmer groups, $2^\infty$-class groups, and Goldfeld's
+conjecture}, arXiv:1702.02325, 2017.
+
+\bibitem{Stange} K.~E.~Stange, \emph{Elliptic nets and elliptic curves}, Algebra Number Theory \textbf{5}
+(2011), no.~2, 197--229.
+
+\bibitem{Tunnell} J.~B.~Tunnell, \emph{A classical Diophantine problem and modular forms of weight $3/2$},
+Invent. Math. \textbf{72} (1983), 323--334.
+
+\bibitem{Ve} M.~Verzobio, \emph{Primitive divisors of elliptic divisibility sequences for elliptic curves
+with $j=1728$}, Acta Arith. \textbf{198} (2021); arXiv:2001.09634.
+
+\bibitem{VY} P.~Voutier and M.~Yabuta, \emph{Primitive divisors of certain elliptic divisibility
+sequences}, Acta Arith. \textbf{151} (2012), 165--190.
+
+\bibitem{Ward} M.~Ward, \emph{Memoir on elliptic divisibility sequences}, Amer. J. Math. \textbf{70}
+(1948), 31--74.
+
+\end{thebibliography}
+
+\end{document}

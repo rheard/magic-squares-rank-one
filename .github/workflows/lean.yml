@@ -1,0 +1,16 @@
+name: Lean proof
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Installs Lean, downloads the Mathlib cache and runs `lake build`, which also runs the axiom check.
+      - uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: lean
